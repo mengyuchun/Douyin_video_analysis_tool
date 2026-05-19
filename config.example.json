@@ -1,0 +1,18 @@
+{
+  "browser": "chrome",
+  "data_dir": "data",
+  "links_file": "links.txt",
+  "max_concurrent": 3,
+  "cookie": {},
+  "stt_provider": "funasr",
+  "stt_api_key": "",
+  "whisper_model": "base",
+  "funasr_model_dir": "model",
+  "llm_provider": "dashscope",
+  "llm_api_key": "",
+  "llm_model": "qwen3.5-flash",
+  "ollama_base_url": "http://localhost:11434/v1",
+  "ollama_model": "qwen2.5:7b",
+  "output_json": true,
+  "output_markdown": true
+}

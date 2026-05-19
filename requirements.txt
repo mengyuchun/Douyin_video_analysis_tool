@@ -1,0 +1,8 @@
+httpx>=0.27.0
+rich>=13.0.0
+browser_cookie3>=0.19.1
+moviepy>=2.0.0
+funasr>=1.0.0
+
+# 可选：本地Whisper语音识别
+# openai-whisper>=20231117

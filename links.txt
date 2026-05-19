@@ -1,0 +1,9 @@
+# 抖音视频链接文件
+# 每行一个链接，支持格式：
+#   1. 分享口令 (如: 0.47 03/26 dAT:/ 复制打开抖音...)
+#   2. 短链接 (如: https://v.douyin.com/xxxxx/)
+#   3. 标准链接 (如: https://www.douyin.com/video/1234567890)
+# 以 # 开头的行为注释，会被忽略
+# 空行也会被忽略
+
+https://www.douyin.com/jingxuan/knowledge?modal_id=7630777285032906034

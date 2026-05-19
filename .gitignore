@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# 配置（含敏感信息）
+config.json
+
+# 数据输出
+data/
+downloads/
+
+# 模型文件（2GB，需单独下载）
+model/
+
+# Claude Code 本地配置
+.agents/
+.claude/
+
+# 测试/覆盖率
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
