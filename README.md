@@ -1,7 +1,7 @@
-# 🎬 Douyin Video Analysis Tool
+# Douyin Video Analysis Tool
 
 <p align="center">
-  <strong>批量下载抖音视频 → 转音频 → 语音转文本 → 大模型结构化分析</strong>
+  <strong>Batch download Douyin videos → Extract audio → Speech-to-text → LLM structured analysis</strong>
 </p>
 
 <p align="center">
@@ -18,139 +18,252 @@
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---------|-------------|
-| 🎥 **批量下载** | 自动解析分享口令/短链接/标准链接，批量下载无水印视频 |
-| 🔊 **视频转音频** | 自动提取音频轨道（mp3/wav/aac） |
-| 📝 **语音转文本** | 3 种方案：FunASR 本地离线 / 阿里云 DashScope / Whisper |
-| 🤖 **大模型分析** | 3 种方案：DashScope / Ollama 本地 / OpenAI 兼容接口 |
-| 🚀 **一键全流程** | 下载 → 转音频 → 转文本 → 分析，全自动 |
-| 🧪 **134 个测试** | 88% 覆盖率，稳定可靠 |
+| **Batch Download** | Auto-parse share links / short URLs / standard URLs, batch download watermark-free videos |
+| **Video to Audio** | Extract audio tracks (mp3/wav/aac) |
+| **Speech to Text** | 3 options: FunASR offline / Alibaba Cloud DashScope / Whisper |
+| **LLM Analysis** | 3 options: DashScope / Ollama local / OpenAI-compatible |
+| **One-Click Pipeline** | Download → Audio → Text → Analysis, fully automated |
+| **134 Tests** | 88% coverage, stable and reliable |
 
-## 📦 Quick Start
+## Quick Start
 
 ```bash
-# 1. 克隆仓库
+# 1. Clone
 git clone https://github.com/mengyuchun/-Douyin_video_analysis_tool.git
 cd Douyin_video_analysis_tool
 
-# 2. 创建环境
+# 2. Create environment
 conda create -n data_env python=3.10 -y
 conda activate data_env
 
-# 3. 安装依赖
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. 下载语音识别模型（约 2GB，可选）
+# 4. Download speech model (~2GB, optional)
 python download_models.py
 
-# 5. 配置
+# 5. Configure
 cp config.example.json config.json
-# 编辑 config.json，填写 API Key（使用本地模型则无需）
+# Edit config.json, fill in API Key (not needed for local models)
 
-# 6. 运行
+# 6. Run
 python main.py
 ```
 
-## 🎯 Usage
+## Usage
 
-将抖音链接放入 `links.txt`（每行一个），启动程序选择功能：
+Put Douyin links into `links.txt` (one per line), then start the program:
 
 ```
-功能菜单:
-  1. 一键全流程 (下载→转音频→转文本→分析)
-  2. 仅下载视频
-  3. 仅视频转音频
-  4. 仅音频转文本
-  5. 仅大模型分析
-  6. 刷新Cookie
-  7. 导入Cookie
-  8. 设置并发数
+Menu:
+  1. Full pipeline (download → audio → text → analysis)
+  2. Download video only
+  3. Video to audio only
+  4. Audio to text only
+  5. LLM analysis only
+  6. Refresh Cookie
+  7. Import Cookie
+  8. Set concurrency
 ```
 
 <details>
-<summary>📄 支持的链接格式</summary>
+<summary>Supported link formats</summary>
 
 ```
-# 分享口令
-7.57 03/26 dAT:/ 【@用户】描述 https://v.douyin.com/xxxxx/
+# Share command (copied from Douyin app)
+7.57 03/26 dAT:/ @user description https://v.douyin.com/xxxxx/
 
-# 短链接
+# Short link
 https://v.douyin.com/xxxxx/
 
-# 标准链接
+# Standard link
 https://www.douyin.com/video/7123456789012345678
 
-# 笔记链接
+# Note link
 https://www.douyin.com/note/7123456789012345678
 ```
+
+- Lines starting with `#` are comments, blank lines are skipped
+- Automatic deduplication
+- Auto-extract valid links from share commands
 </details>
 
 <details>
-<summary>📊 输出示例（大模型分析结果）</summary>
+<summary>Output example (LLM analysis)</summary>
 
+**Content summary template:**
 ```json
 {
-  "Hook_Type": "痛点提问",
-  "Hook_Reason": "原句：'你有没有想过为什么...'，通过提问引发共鸣",
-  "CTA_Softness": "情绪软植入",
-  "Core_Emotion": "制造焦虑",
-  "Narrative_Structure": "PAS(痛点-放大-方案)"
+  "title": "Learn Python in 3 minutes",
+  "summary": "Video introduces Python basics...",
+  "keywords": ["Python", "programming", "tutorial"],
+  "category": "Knowledge sharing",
+  "sentiment": "Positive"
+}
+```
+
+**Product analysis template:**
+```json
+{
+  "Hook_Type": "Pain point question",
+  "Hook_Reason": "Original: 'Have you ever thought about why...', triggers empathy",
+  "CTA_Softness": "Emotional soft placement",
+  "Core_Emotion": "Create anxiety",
+  "Narrative_Structure": "PAS (Pain-Amplify-Solution)"
 }
 ```
 </details>
 
-## ⚙️ Configuration
+## Configuration
 
-### 语音识别
+### Speech Recognition
 
-| 方案 | 配置 | 需要 Key | 说明 |
-|------|------|---------|------|
-| FunASR | `stt_provider: "funasr"` | ❌ | **默认**，完全离线，需下载模型 |
-| DashScope | `stt_provider: "dashscope"` | ✅ | 阿里云云端识别 |
-| Whisper | `stt_provider: "whisper"` | ❌ | 需安装 openai-whisper |
+| Provider | Config Value | API Key Required | Description |
+|----------|-------------|------------------|-------------|
+| FunASR | `funasr` | No | **Default**, fully offline, requires model download (~2GB) |
+| DashScope | `dashscope` | Yes | Alibaba Cloud recognition, requires `stt_api_key` |
+| Whisper | `whisper` | No | Requires `openai-whisper` package |
 
-### 大模型
+### LLM Provider
 
-| 方案 | 配置 | 需要 Key | 默认模型 |
-|------|------|---------|----------|
-| DashScope | `llm_provider: "dashscope"` | ✅ | qwen3.5-flash |
-| Ollama | `llm_provider: "ollama"` | ❌ | qwen2.5:7b |
-| OpenAI | `llm_provider: "openai"` | ✅ | gpt-3.5-turbo |
+| Provider | Config Value | API Key Required | Default Model |
+|----------|-------------|------------------|---------------|
+| DashScope | `dashscope` | Yes | qwen3.5-flash |
+| Ollama | `ollama` | No | qwen2.5:7b |
+| OpenAI | `openai` | Yes | gpt-3.5-turbo |
 
-## 📁 Project Structure
-
-```
-├── main.py                # 入口
-├── src/                   # 核心模块
-│   ├── config.py          # 配置管理
-│   ├── parser.py          # 链接解析
-│   ├── api.py             # 抖音 API
-│   ├── downloader.py      # 视频下载
-│   ├── converter.py       # 视频转音频
-│   ├── transcriber.py     # 音频转文本
-│   └── analyzer.py        # 大模型分析
-├── model/                 # 语音模型（需下载）
-├── data/                  # 输出目录
-│   ├── videos/            # 视频
-│   ├── audio/             # 音频
-│   ├── transcripts/       # 文本
-│   └── analysis/          # 分析结果
-└── tests/                 # 134 个测试
+Using Ollama local model:
+```bash
+# Install Ollama: https://ollama.com
+ollama pull qwen2.5:7b
+# Edit config.json: "llm_provider": "ollama"
 ```
 
-## 🤝 Contributing
+### Analysis Templates
 
-欢迎贡献！请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
+| Template | Description |
+|----------|-------------|
+| Content Summary | Title, summary, keywords, category, sentiment |
+| Product Analysis | Product, selling points, promotion method, conversion hooks |
+| Sentiment Analysis | Sentiment tendency, tags, intensity |
+| Video Product Analysis | Hook type, CTA softness, emotion, narrative structure |
+| Custom | User-defined prompt |
 
-## 📄 License
+## Project Structure
+
+```
+├── main.py                # Entry point
+├── config.example.json    # Config template
+├── download_models.py     # Model download script
+├── src/                   # Core modules
+│   ├── config.py          # Configuration management
+│   ├── parser.py          # Link parsing (share command / short URL / standard)
+│   ├── api.py             # Douyin API (A-Bogus signature)
+│   ├── downloader.py      # Async video download (concurrency / progress / resume)
+│   ├── converter.py       # Video to audio (moviepy)
+│   ├── transcriber.py     # Audio to text (FunASR / DashScope / Whisper)
+│   └── analyzer.py        # LLM analysis (DashScope / Ollama / OpenAI)
+├── model/                 # FunASR speech models (separate download)
+├── data/                  # Output directory
+│   ├── videos/            # Downloaded videos
+│   ├── audio/             # Extracted audio
+│   ├── transcripts/       # Transcribed text
+│   └── analysis/          # Analysis results (JSON + Markdown)
+└── tests/                 # 134 unit tests
+```
+
+## Extending
+
+### Adding a new LLM provider
+
+```python
+# src/analyzer.py
+class NewProvider:
+    async def chat(self, prompt: str, content: str) -> str:
+        # Call new model API
+        ...
+```
+
+Add a branch in `get_llm_provider()` and a config entry in `config.json`.
+
+### Adding analysis templates
+
+```python
+# src/analyzer.py PROMPT_TEMPLATES
+PROMPT_TEMPLATES["new_template"] = {
+    "name": "Template Name",
+    "prompt": "Your prompt..."
+}
+```
+
+## Disclaimer and Risk Notice
+
+### Legal Notice
+
+This tool is intended **solely for educational research and internal team use**. Users must bear all legal responsibility for using this tool.
+
+**Strictly prohibited uses:**
+
+- Any commercial use (including but not limited to reselling video content, bulk reposting for profit)
+- Infringing others' intellectual property rights (video copyrights belong to authors and platforms)
+- Violating applicable laws and regulations
+- Bypassing Douyin's technical protection measures (including anti-scraping, DRM, etc.)
+- Large-scale, high-frequency scraping that disrupts Douyin's normal operations
+- Distributing content obtained through this tool
+
+### Platform Compliance Risks
+
+- Douyin **explicitly prohibits** unauthorized automated data collection
+- Using this tool may result in your **Douyin account being banned or restricted**
+- Douyin may update anti-scraping strategies at any time, causing this tool to **stop working**
+- The A-Bogus signature algorithm used is derived from reverse engineering and may violate platform terms of service
+
+### Data Security
+
+- Credentials like cookies are stored locally in `config.json` — **do not leak them**
+- This tool does not upload any user data to third-party servers
+- Recommended to run in an isolated environment, avoid using on devices linked to your main account
+
+### AI-Generated Content
+
+- LLM analysis results are for reference only and **do not represent objective facts**
+- Do not use AI analysis as the sole basis for decisions
+- AI-generated content may contain bias, errors, or hallucinations
+
+### Recommendations
+
+1. Only download and analyze content you have **legal rights to use**
+2. Control scraping frequency to avoid burdening the target platform
+3. Regularly check and comply with Douyin's latest terms of service
+4. Released under [MIT License](LICENSE), **no warranty of any kind**
+
+## Contributing
+
+Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
 
 [MIT License](LICENSE)
+
+## Acknowledgments
+
+This project was developed with reference to the following open-source projects and technologies:
+
+| Project | Acknowledgment |
+|---------|---------------|
+| [JoeanAmier/TikTokDownloader](https://github.com/JoeanAmier/TikTokDownloader) | A-Bogus signature algorithm (`abogus.py` ported from `src/encrypt/aBogus.py`) |
+| [Evil0ctal/Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) | Douyin Web API interface design reference |
+| [modelscope/FunASR](https://github.com/modelscope/FunASR) | Alibaba DAMO Academy FunASR speech recognition model (paraformer-v2), default local offline STT |
+| [DashScope](https://dashscope.aliyun.com/) | Alibaba Cloud LLM platform, providing STT and LLM APIs |
+| [openai/whisper](https://github.com/openai/whisper) | OpenAI open-source speech recognition model, optional local STT |
+| [gmssl-python](https://github.com/emmansun/gmssl) | Chinese national cryptography SM3 library, dependency for A-Bogus signature |
 
 ---
 
 <p align="center">
-  ⭐ 如果这个项目对你有帮助，请点个 Star 支持一下！
+  If this project helps you, please give it a Star!
 </p>

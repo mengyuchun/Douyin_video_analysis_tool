@@ -204,9 +204,63 @@ PROMPT_TEMPLATES["new_template"] = {
 
 欢迎贡献！请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
+## ⚠️ 免责声明与风险提示
+
+### 法律声明
+
+本工具仅供**学习研究**和**团队内部**使用，使用者须自行承担使用本工具的一切法律责任。
+
+**严禁将本工具用于以下用途：**
+
+- 任何商业用途（包括但不限于转售视频内容、批量搬运牟利等）
+- 侵犯他人知识产权（视频版权归原作者及平台所有）
+- 违反《中华人民共和国网络安全法》《数据安全法》《个人信息保护法》等法律法规
+- 突破抖音平台技术保护措施（包括但不限于反爬虫、DRM 等）
+- 大规模、高频次抓取，干扰抖音平台正常运行
+- 传播、分发通过本工具获取的视频内容
+
+### 平台合规风险
+
+- 抖音平台**明确禁止**未经授权的自动化数据采集行为
+- 使用本工具可能导致您的**抖音账号被封禁或限制**
+- 抖音平台可能随时更新反爬策略，导致本工具**失效**
+- 本工具涉及的 A-Bogus 签名算法来自逆向工程，可能违反平台服务条款
+
+### 数据安全风险
+
+- Cookie 等凭据存储在本地 `config.json` 中，请妥善保管，**切勿泄露**
+- 本工具不上传任何用户数据到第三方服务器
+- 建议在隔离环境中运行，避免在主力账号关联的设备上使用
+
+### AI 生成内容风险
+
+- 大模型分析结果仅供参考，**不代表客观事实**
+- 请勿将 AI 分析结果作为决策的唯一依据
+- AI 生成内容可能存在偏见、错误或幻觉
+
+### 使用建议
+
+1. 仅下载和分析您**有合法使用权**的内容
+2. 控制抓取频率，避免对目标平台造成负担
+3. 定期检查并遵守抖音平台最新服务条款
+4. 本工具按 [MIT License](LICENSE) 发布，**不提供任何形式的担保**
+
 ## 📄 许可证
 
 [MIT License](LICENSE) — 仅供学习和团队内部使用。
+
+## 🙏 致谢
+
+本项目在开发过程中参考了以下开源项目和技术，在此致谢：
+
+| 项目 | 致谢内容 |
+|------|----------|
+| [JoeanAmier/TikTokDownloader](https://github.com/JoeanAmier/TikTokDownloader) | A-Bogus 签名算法实现（`abogus.py` 移植自该项目 `src/encrypt/aBogus.py`） |
+| [Evil0ctal/Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) | 抖音 Web API 接口设计思路参考 |
+| [modelscope/FunASR](https://github.com/modelscope/FunASR) | 阿里达摩院 FunASR 语音识别模型（paraformer-v2），本项目默认的本地离线语音识别方案 |
+| [DashScope](https://dashscope.aliyun.com/) | 阿里云百炼大模型服务平台，提供语音识别和大模型 API |
+| [openai/whisper](https://github.com/openai/whisper) | OpenAI 开源语音识别模型，本项目可选的本地识别方案 |
+| [gmssl-python](https://github.com/emmansun/gmssl) | 国密 SM3 算法库，A-Bogus 签名的底层依赖 |
 
 ---
 
